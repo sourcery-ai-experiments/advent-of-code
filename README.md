@@ -1,7 +1,7 @@
 Advent of Code
 ---
 
-Solutions to the Advent of Code problem set, available at:
+Solutions to the Advent of Code problem sets, available at:
 
 - [https://adventofcode.com/](https://adventofcode.com/)
 

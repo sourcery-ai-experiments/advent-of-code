@@ -1,0 +1,32 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry]
+name = "advent_of_code"
+version = "0.0.0"
+description = "Solutions to the Advent of Code problem sets."
+authors = ["Bilbottom"]
+readme = "README.md"
+packages = [{include = "advent_of_code"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+rich = "^12"
+tqdm = "^4"
+
+[tool.poetry.group]
+dev.optional = true
+ide.optional = true
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3"
+
+# Packages just for IDE integration
+[tool.poetry.group.ide.dependencies]
+black = "*"
+
+
+[tool.isort]
+profile = "black"
