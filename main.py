@@ -14,11 +14,13 @@ def main() -> None:
     # advent_of_code.utils.create_files(day=None)  # Default
 
     advent_of_code.solutions.print_all_solutions(
-        print_all=False,
+        print_all=True,
         use_sample=True,
-        profile_solutions=False,
-        repeat=10_000,
-        print_day=17,
+        year=2022,
+        profile_solutions=True,
+        repeat=10,
+        # repeat=10_000,
+        # print_day=17,
     )
 
 

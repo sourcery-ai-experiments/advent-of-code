@@ -20,9 +20,9 @@ class Solution:
     - ``solution_oop``: The OOP version of the solution.
     - ``solution_optimal``: The optimal (?) version of the solution.
     """
-    def __init__(self, day: int):
+    def __init__(self, year: int, day: int):
         self.day = day
-        self.module = importlib.import_module(f"advent_of_code.day_{day}")
+        self.module = importlib.import_module(f"advent_of_code.year_{year}.day_{day}")
         self.oop_solution = getattr(self.module, "solution_oop")
         self.optimal_solution = getattr(self.module, "solution_optimal")
 
@@ -62,6 +62,7 @@ class Solution:
 def print_all_solutions(
     print_all: bool,
     use_sample: bool,
+    year: int,
     profile_solutions: bool = False,
     repeat: int = 10_000,
     print_day: int = None,
@@ -73,14 +74,14 @@ def print_all_solutions(
 
     if print_all:
         for i in range(day_today):
-            sol = Solution(day=i + 1)
+            sol = Solution(year=year, day=i + 1)
             sol.print_solution(
                 use_sample=use_sample,
                 profile_solutions=profile_solutions,
                 repeat=repeat,
             )
     else:
-        sol = Solution(day=day_today)
+        sol = Solution(year=year, day=day_today)
         sol.print_solution(
             use_sample=use_sample,
             profile_solutions=profile_solutions,
