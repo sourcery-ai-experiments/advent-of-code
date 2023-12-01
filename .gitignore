@@ -9,6 +9,9 @@ gen
 *.[cpt]sv
 *.xls?
 
+# AoC Input Data
+input.data
+
 # Database files
 *.db
 *.sqlite
