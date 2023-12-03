@@ -1,3 +1,3 @@
 """
-Yearly packages to solve the advent of code problems.
+Yearly packages to solve the Advent of Code problems.
 """
