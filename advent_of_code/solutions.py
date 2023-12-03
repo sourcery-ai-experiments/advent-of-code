@@ -1,89 +1,67 @@
 """
-Solutions to the advent of code 2022 problems.
+Solutions to the Advent of Code problems.
 """
 import datetime
-import functools
 import importlib
+import os
+import pathlib
+import types
+from typing import Callable
 
-import advent_of_code.utils
+from advent_of_code.constants import ROOT
 
 
 class Solution:
     """
-    Programmatically grab the functions and object corresponding to the day's
-    problems and solutions.
+    Programmatically grab the functions and object corresponding to the
+    day's problems and solutions.
 
-    Expects there to be a module called ``day_i`` with ``i`` replaced by the day
-    number, which has the following properties:
-
-    - ``SAMPLE_INPUT``: The sample input for the problem.
-    - ``solution_oop``: The OOP version of the solution.
-    - ``solution_optimal``: The optimal (?) version of the solution.
+    Expects there to be a module called ``day_i`` with ``i`` replaced by the
+    day number which exposes a ``solution`` function.
     """
 
-    def __init__(self, year: int, day: int):
-        self.day = day
-        self.module = importlib.import_module(f"advent_of_code.year_{year}.day_{day}")
-        self.oop_solution = getattr(self.module, "solution_oop")
-        self.optimal_solution = getattr(self.module, "solution_optimal")
+    day: int
+    year: int
+    path: pathlib.Path
+    module: types.ModuleType
+    solution: Callable
 
-    def read_input(self, use_sample: bool) -> str:
+    def __init__(self, day: int, year: int):
+        self.day = day
+        self.year = year
+        self.path = ROOT / f"year_{year}/day_{day:02d}"
+        self.module = importlib.import_module(
+            str("advent_of_code" / self.path.relative_to(ROOT)).replace(os.sep, "."),
+            str(ROOT),
+        )
+        self.solution = getattr(self.module, "solution")
+
+    def read_input(self) -> str:
         """
         Open the input file and return its contents.
         """
-        if use_sample:
-            return getattr(self.module, "SAMPLE_INPUT")
+        return (self.path / "input.data").read_text().strip()
 
-        return advent_of_code.utils.read_input(f"day_{self.day}")
-
-    def print_solution(
-        self, use_sample: bool, profile_solutions: bool = False, repeat: int = 10_000
-    ) -> None:
+    def print_solution(self) -> None:
         """
         Print the day's solution!
         """
-        input_ = self.read_input(use_sample=use_sample)
-
-        print(f"--- Day {self.day:02d} Solution ---")
-        print(self.oop_solution(input_=input_))
-        print(self.optimal_solution(input_=input_))
-        print()
-
-        if profile_solutions:
-            advent_of_code.utils.profile(
-                oop_solution=functools.partial(self.oop_solution, input_=input_),
-                optimal_solution=functools.partial(
-                    self.optimal_solution, input_=input_
-                ),
-                repeat=repeat,
-            )
+        print(f"--- Year {self.year} Day {self.day:02d} Solution ---")
+        print(self.solution(input_=self.read_input()), "\n", sep="")
 
 
-def print_all_solutions(
+def print_solutions(
     print_all: bool,
-    use_sample: bool,
     year: int,
-    profile_solutions: bool = False,
-    repeat: int = 10_000,
     print_day: int = None,
 ) -> None:
     """
     Print the solutions.
     """
-    day_today = print_day or datetime.datetime.now().day
+    day_today = print_day or datetime.date.today().day
 
     if print_all:
         for i in range(day_today):
-            sol = Solution(year=year, day=i + 1)
-            sol.print_solution(
-                use_sample=use_sample,
-                profile_solutions=profile_solutions,
-                repeat=repeat,
-            )
+            Solution(year=year, day=i + 1).print_solution()
     else:
-        sol = Solution(year=year, day=day_today)
-        sol.print_solution(
-            use_sample=use_sample,
-            profile_solutions=profile_solutions,
-            repeat=repeat,
-        )
+        Solution(year=year, day=day_today).print_solution()
