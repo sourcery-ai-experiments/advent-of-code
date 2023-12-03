@@ -2,6 +2,8 @@
 ci:
   skip: [poetry-lock, sourcery]
 
+exclude: .*/(input|sample).*\.data
+
 repos:
   - repo: meta
     hooks:

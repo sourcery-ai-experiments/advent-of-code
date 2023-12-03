@@ -1,7 +1,5 @@
 """
-https://adventofcode.com/
-
-Solution for day 1.
+Solution for day 1, Trebuchet?!.
 """
 from __future__ import annotations
 
