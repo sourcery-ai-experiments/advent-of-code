@@ -40,7 +40,7 @@ class FileCreator:
         self._create_dunder_main()
         self._create_main()
         self._create_readme()
-        self._create_sample()
+        self._create_data_files()
 
     def _create_directory(self) -> None:
         """
@@ -94,12 +94,13 @@ class FileCreator:
             contents=textwrap.dedent(
                 f'''\
                 """
-                Solution for day {self.day}, .
+                Solution for day {self.day}.
                 """
                 from __future__ import annotations
 
                 import logging
                 from typing import Any
+
 
                 def solution(input_: str) -> list[Any]:
                     """
@@ -134,11 +135,12 @@ class FileCreator:
             ),
         )
 
-    def _create_sample(self) -> None:
+    def _create_data_files(self) -> None:
         """
-        Create the sample data file for the daily problem.
+        Create the data files for the daily problem.
         """
         self.write_to_file(filename="sample.data", contents="")
+        self.write_to_file(filename="input.data", contents="")
 
 
 def create_files(year: int, day: int = None) -> None:

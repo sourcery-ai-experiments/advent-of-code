@@ -1,5 +1,5 @@
 """
-Solution for day 2, Cube Conundrum.
+Solution for day 2.
 """
 from __future__ import annotations
 

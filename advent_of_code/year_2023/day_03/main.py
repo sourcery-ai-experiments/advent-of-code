@@ -1,5 +1,5 @@
 """
-Solution for day 3, Gear Ratio.
+Solution for day 3.
 """
 from __future__ import annotations
 

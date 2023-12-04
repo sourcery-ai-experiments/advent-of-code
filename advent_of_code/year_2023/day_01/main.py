@@ -1,5 +1,5 @@
 """
-Solution for day 1, Trebuchet?!.
+Solution for day 1.
 """
 from __future__ import annotations
 
