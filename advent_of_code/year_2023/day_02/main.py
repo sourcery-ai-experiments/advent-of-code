@@ -33,7 +33,7 @@ class Cubes(collections.UserDict):
         class_ = cls()
         cubes = text.split(",")  # ["a blue", "b red", "c green"]
         for cube in cubes:
-            cube_count, cube_color = cube.strip().split(" ")
+            cube_count, cube_color = cube.strip().split()
             class_[cube_color] = int(cube_count)
 
         return class_
@@ -73,7 +73,7 @@ class Game:
         game_id, revealed_cubes = text.strip().split(":")
 
         return cls(
-            id_=int(game_id.split(" ")[1]),
+            id_=int(game_id.split()[1]),
             revealed_cubes=[Cubes.from_text(s) for s in revealed_cubes.split(";")],
         )
 
